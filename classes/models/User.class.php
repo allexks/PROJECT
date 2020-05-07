@@ -185,7 +185,7 @@ class User {
             $test->id = (int)$row["id"];
             $test->user_id = (int)$row["user_id"];
             $test->time_uploaded = $row["time_uploaded"];
-            $test->title = (int)$row["title"];
+            $test->title = $row["title"];
             $test->fetchQuestions();
             $result[] = $test;
         }
