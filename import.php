@@ -1,8 +1,8 @@
 <?php
 
-require_once "config/config.php";
+require_once "classes/util/View.class.php";
+$view = new View("index");
 
 // TODO
 
-$template_dir = SETTINGS["TEMPLATES_DIR"] . "/" . SETTINGS["TEMPLATE_NAME"];
-include "$template_dir/import.html";
+$view->send();

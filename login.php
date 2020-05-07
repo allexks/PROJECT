@@ -1,8 +1,8 @@
 <?php
 
-require_once "config/config.php";
+require_once "classes/util/View.class.php";
+$view = new View("login");
 
 // TODO
 
-$template_dir = SETTINGS["TEMPLATES_DIR"] . "/" . SETTINGS["TEMPLATE_NAME"];
-include "$template_dir/login.html";
+$view->send();
