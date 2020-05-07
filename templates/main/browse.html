@@ -8,7 +8,7 @@
     </head>
     <body>
         <?php if ($params["is_logged"]): ?>
-            <h2>User <?=$params["username"]?> is logged in.</h2>
+            <h2>Welcome, <?=$params["username"]?>!</h2>
         <?php elseif ($params["database_error"]): ?>
             <h2>Database error!</h2>
         <?php else: ?>
