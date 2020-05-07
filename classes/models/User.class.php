@@ -1,7 +1,5 @@
 <?php
 
-require_once "config/config.php";
-
 /**
  * A basic system user.
  */
