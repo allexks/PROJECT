@@ -15,7 +15,7 @@ class View {
         $this->module = $module_name;
     }
 
-    public function send() {
+    public function send($params = array()) {
         include self::TEMPLATE_DIR . "/{$this->module}.html";
         exit(0);
     }
