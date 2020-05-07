@@ -7,31 +7,33 @@
         <script src="js/browse.js" defer></script>
     </head>
     <body>
-        <?php if ($params["is_logged"]): ?>
-            <h2>Welcome, <?=$params["username"]?>!</h2>
-            <?php if (empty($params["tests"])): ?>
-                <h3>No tests available. Start by <a href="import.php">importing</a> one!</h3>
-            <?php else: ?>
-                <h3>Tests:</h3>
-                <table>
-                    <tr>
-                        <th>Test title</th>
-                        <th>Uploaded on</th>
-                        <th>Num of questions</th>
-                    </tr>
-                    <?php foreach ($params["tests"] as $index => $test): ?>
+        <div id="container">
+            <?php if ($params["is_logged"]): ?>
+                <h2>Welcome, <?=$params["username"]?>!</h2>
+                <?php if (empty($params["tests"])): ?>
+                    <h3>No tests available. Start by <a href="import.php">importing</a> one!</h3>
+                <?php else: ?>
+                    <h3>Tests:</h3>
+                    <table id="tests">
                         <tr>
-                            <td><?=$test->title?></td>
-                            <td><?=$test->time_uploaded?></td>
-                            <td><?=count($test->questions)?></td>
+                            <th>Test title</th>
+                            <th>Uploaded on</th>
+                            <th>Num of questions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </table>
+                        <?php foreach ($params["tests"] as $index => $test): ?>
+                            <tr>
+                                <td><?=$test->title?></td>
+                                <td><?=$test->time_uploaded?></td>
+                                <td><?=count($test->questions)?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php endif; ?>
+            <?php elseif ($params["database_error"]): ?>
+                <h2 class="error">Database error!</h2>
+            <?php else: ?>
+                <h2>Welcome! Please log in order to use the system.</h2>
             <?php endif; ?>
-        <?php elseif ($params["database_error"]): ?>
-            <h2>Database error!</h2>
-        <?php else: ?>
-            <h2>Please log in to view this page.</h2>
-        <?php endif; ?>
+        </div>
     </body>
 </html>
