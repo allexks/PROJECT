@@ -28,14 +28,14 @@ $params["database_error"] = false;
 
 // Determine currect logged user
 
-// if (!isset($_SESSION["user_id"])) {
-//     $view->send($params);
-// }
-//
-// $user_id = (int)$_SESSION["user_id"] ?? 0;
+if (!isset($_SESSION["user_id"])) {
+    $view->send($params);
+}
+
+$user_id = (int)$_SESSION["user_id"] ?? 0;
 
 // == TEST: ==
-$user_id = 1;
+// $user_id = 1;
 // == ===== ==
 
 // Fetch user info
