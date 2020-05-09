@@ -4,15 +4,6 @@ require_once "classes/util/Database.class.php";
 require_once "classes/models/User.class.php";
 require_once "classes/util/View.class.php";
 
-$view = new View("browse");
-
-$params = [
-    "is_logged" => false,
-    "database_error" => true,
-    "username" => "",
-    "tests" => [],
-];
-
 session_start();
 
 // Establish database connection
@@ -21,15 +12,15 @@ $database = new Database();
 $db = $database->getNewConnection();
 
 if (!$db) {
-    $view->send($params);
+    $view = new View("database_error");
+    $view->send();
 }
-
-$params["database_error"] = false;
 
 // Determine currect logged user
 
 if (!isset($_SESSION["user_id"])) {
-    $view->send($params);
+    $view = new View("login_error");
+    $view->send();
 }
 
 $user_id = (int)$_SESSION["user_id"] ?? 0;
@@ -44,10 +35,17 @@ $user = new User($db);
 $user->id = $user_id;
 
 if (!$user->idExists()){
-    $view->send($params);
+    $view = new View("login_error");
+    $view->send();
 }
 
-$params["is_logged"] = true;
+$view = new View("browse");
+
+$params = [
+    "username" => "",
+    "tests" => [],
+];
+
 $params["username"] = $user->username;
 
 // Fetch user tests
