@@ -20,6 +20,18 @@ body {
     margin: 10px;
 }
 
+.question.correct {
+    color: green;
+}
+
+.question.wrong {
+    color: red;
+}
+
+.question.partial {
+    color: orange;
+}
+
 #tests {
     width: 100%;
 }
