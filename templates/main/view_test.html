@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>View test</title>
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/view_test.js" defer></script>
+    </head>
+    <body>
+        <div id="container">
+            <h1><?=$params["title"]?></h1>
+            <?php if ($params["is_viewing_results"]): ?>
+                <h2>Results:</h2><h3><?=$params["sum"]?> / <?=$params["max"]?></h3>
+            <?php endif; ?>
+
+            <?php if (count($params["questions"]) == 0): ?>
+                <h2>No questions here!</h2>
+            <?php else: ?>
+                <form action="" method="post">
+                    <?php foreach ($params["questions"] as $ind_q => $question): ?>
+                        <hr />
+                        <strong class="question <?=$params["question_classes"][(string)$question->id]?>"><?=$ind_q + 1?>. <?=$question->text?></strong>
+                        <?php foreach ($question->answers as $ind_a => $answer): ?>
+                            <div class="answer">
+                                <input type="checkbox" name="q<?=$question->id?>[]" value="a<?=$answer->id?>">
+                                <label for="q<?=$question->id?>"><?=$answer->text?></label>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    <hr />
+                    <input type="submit" name="submit" value="See the results!">
+                </form>
+            <?php endif; ?>
+        </div>
+    </body>
+</html>

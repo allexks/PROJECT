@@ -4,7 +4,7 @@ body {
 
 #container {
     background-color: #fff8d3;
-    max-width: 900px;
+    max-width: 600px;
     margin: 0px auto;
     padding: 0px 10px 20px;
     border-radius: 10px;
@@ -13,6 +13,23 @@ body {
 
 #container h1, #container h2, #container h3, #container h4, #container h5, #container h6 {
     text-align: center;
+}
+
+.question, .answer {
+    display: block;
+    margin: 10px;
+}
+
+.question.correct {
+    color: green;
+}
+
+.question.wrong {
+    color: red;
+}
+
+.question.partial {
+    color: orange;
 }
 
 #tests {
