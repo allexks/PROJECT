@@ -16,20 +16,6 @@ if (!$db) {
     $view->send();
 }
 
-// Determine currect logged user
-
-$user_id = $_SESSION["user_id"] ?? "0";
-$user_id = (int)$user_id;
-
-if (!$user_id) {
-    $view = new View("login_error");
-    $view->send();
-}
-
-// == TEST: ==
-// $user_id = 1;
-// == ===== ==
-
 // Get test ID
 
 $test_id = $_GET["id"] ?? "0";
@@ -54,14 +40,6 @@ if (!$test->fetchQuestions()) {
     $view = new View("database_error");
     $view->send();
 }
-
-// Check if the user has access to the test
-
-if ($test->user_id != $user_id) {
-    $view = new View("not_found");
-    $view->send();
-}
-
 
 $question_classes = [];
 $sum = 0;
