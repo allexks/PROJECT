@@ -50,6 +50,11 @@ if (!$test->fetch()) {
     $view->send();
 }
 
+if (!$test->fetchQuestions()) {
+    $view = new View("database_error");
+    $view->send();
+}
+
 // Check if the user has access to the test
 
 if ($test->user_id != $user_id) {
@@ -57,5 +62,17 @@ if ($test->user_id != $user_id) {
     $view->send();
 }
 
+// Perform results check if the form is submitted
+
+if (isset($_POST["submit"])) {
+
+    // TODO
+}
+
+$params = [
+    "title" => $test->title ?? "",
+    "questions" => $test->questions ?? [],
+];
+
 $view = new View("view_test");
-$view->send();
+$view->send($params);

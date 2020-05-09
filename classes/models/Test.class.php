@@ -64,7 +64,8 @@ class Test {
                   FROM $questionstable q
                   JOIN $teststable t
                   ON q.test_id = t.id
-                  WHERE t.id = :id";
+                  WHERE t.id = :id
+                  ORDER BY q.order_number ASC";
 
         $stmt = $this->conn->prepare($query);
         $testid = htmlspecialchars(strip_tags($this->id));
