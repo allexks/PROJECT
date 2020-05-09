@@ -25,10 +25,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = (int)$_SESSION["user_id"] ?? 0;
 
-// == TEST: ==
-// $user_id = 1;
-// == ===== ==
-
 // Fetch user info
 
 $user = new User($db);
