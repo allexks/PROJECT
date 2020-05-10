@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/models/Test.class.php";
+require_once "classes/models/Feedback.class.php";
 require_once "classes/util/Database.class.php";
 require_once "classes/util/View.class.php";
 
@@ -64,7 +65,7 @@ if ($user_id && $user_id == $test->user_id) {
 
 // Perform results check if the form is submitted
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"]) || isset($_POST["feedback"])) {
 
     $is_viewing_results = true;
 
@@ -161,6 +162,51 @@ if (isset($_POST["submit"])) {
     }
 }
 
+
+if (isset($_POST["feedback"]) && $user_id) {
+    foreach ($_POST as $key => $value) {
+
+        // Feedback for the questions are in string named "fXXX" where "XXX" is the id of the question
+
+        if (!preg_match("/^[fF][0-9]+$/", $key)) {
+            continue;
+        }
+
+        $question_id = substr($key, 1, strlen($key) - 1) ?? "0";
+        $question_id = (int)$question_id;
+
+        if (!$question_id) {
+            continue;
+        }
+
+        // Update feedback
+
+        $feedback = new Feedback($db);
+        $feedback->question_id = $question_id;
+        $feedback->user_id = $user_id;
+
+        if ($feedback->fetchGivenUserAndQuestionIfAvailable() === false) {
+            // error with the query; skip it for now
+            continue;
+        }
+
+        $feedback->text = $value;
+
+        if (!$feedback->id && !empty($value)) {
+            // No previous feedback here.
+            // If there is such now, let's INSERT it into the database.
+            $feedback->create();
+
+        } elseif (empty($value)) {
+            // Empty text field means no feedback => delete the entry.
+            $feedback->delete();
+
+        } else {
+            $feedback->update();
+        }
+    }
+}
+
 // Leave feedback
 
 $feedback_for_question = [];
@@ -176,10 +222,6 @@ if ($give_feedback_mode) {
 
         $feedback_for_question[(string)$question->id] = $question->feedback[0]->text;
     }
-}
-
-if (isset($_POST["feedback"])) {
-    // TODO: save feedback into DB
 }
 
 // View the feedback
