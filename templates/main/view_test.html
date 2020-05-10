@@ -17,16 +17,39 @@
                 <h2>No questions here!</h2>
             <?php else: ?>
                 <form action="" method="post">
+
                     <?php foreach ($params["questions"] as $ind_q => $question): ?>
                         <hr />
                         <strong class="question <?=$params["question_classes"][(string)$question->id]?>"><?=$ind_q + 1?>. <?=$question->text?></strong>
+
                         <?php foreach ($question->answers as $ind_a => $answer): ?>
                             <div class="answer">
                                 <input type="checkbox" name="q<?=$question->id?>[]" value="a<?=$answer->id?>">
                                 <label for="q<?=$question->id?>"><?=$answer->text?></label>
                             </div>
                         <?php endforeach; ?>
+
+                        <?php if ($params["give_feedback_mode"]): ?>
+                            <em>Your feedback for question <?=$ind_q + 1?>:</em>
+                            <textarea name="f<?=$question->id?>" rows="2" cols="80"><?=$params["feedback_for_question"][(string)$question->id]?></textarea>
+                        <?php elseif ($params["view_feedback_mode"]): ?>
+
+                            <table>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Comment</th>
+                                </tr>
+                                <?php foreach ($question->feedback as $ind_f => $feedback): ?>
+                                    <tr>
+                                        <td><?$feedback->username?></td>
+                                        <td><?$feedback->text?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+
+                        <?php endif; ?>
                     <?php endforeach; ?>
+
                     <hr />
                     <input type="submit" name="submit" value="See the results!">
                 </form>
