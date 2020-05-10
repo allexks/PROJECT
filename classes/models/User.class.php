@@ -79,6 +79,39 @@ class User {
         return true;
     }
 
+    public function usernameExists() {
+        $tablename = self::DB_TABLENAME;
+
+        $query = "SELECT id, username, password
+                  FROM $tablename
+                  WHERE username = ?
+                  LIMIT 0,1";
+
+        $stmt = $this->conn->prepare($query);
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $stmt->bindParam(1, $this->email);
+
+        if (!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            return false;
+        }
+
+        $rows_count = $stmt->rowCount();
+
+        if ($rows_count <= 0) {
+            return false;
+        }
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = (int)$row['id'];
+        $this->username = $row['username'];
+        $this->password = $row['password'];
+
+        return true;
+    }
+
     public function idExists() {
         $tablename = self::DB_TABLENAME;
 
