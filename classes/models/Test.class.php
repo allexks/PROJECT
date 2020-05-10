@@ -87,13 +87,13 @@ class Test {
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $test = new Question($this->conn);
-            $test->id = (int)$row["id"];
-            $test->test_id = (int)$row["test_id"];
-            $test->order_number = (int)$row["order_number"];
-            $test->text = $row["text"];
-            $test->fetchAnswers();
-            $result[] = $test;
+            $q = new Question($this->conn);
+            $q->id = (int)$row["id"];
+            $q->test_id = (int)$row["test_id"];
+            $q->order_number = (int)$row["order_number"];
+            $q->text = $row["text"];
+            $q->fetchAnswers();
+            $result[] = $q;
         }
 
         $this->questions = $result;
