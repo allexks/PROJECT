@@ -1,6 +1,6 @@
 <?php
 
-require_once "classes/models/Question.class.php";
+require_once "classes/models/User.class.php";
 require_once "classes/models/Question.class.php";
 
 /**
