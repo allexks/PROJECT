@@ -100,7 +100,9 @@ class Question {
         return true;
     }
 
-    public function fetchFeedback() {
+    public function fetchFeedback($with_user_id = null) {
+        $userstmt = isset($with_user_id) && !empty($with_user_id) ? "AND f.user_id = :userid" : "";
+
         $questionstable = self::DB_TABLENAME;
         $fbtable = Feedback::DB_TABLENAME;
 
@@ -108,16 +110,20 @@ class Question {
                   FROM $fbtable f
                   JOIN $questionstable q
                   ON f.question_id = q.id
-                  WHERE q.id = :id";
+                  WHERE q.id = :id
+                  $userstmt";
 
         $stmt = $this->conn->prepare($query);
         $questionid = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(":id", $questionid);
+        if (isset($with_user_id) && !empty($with_user_id)) {
+            $stmt->bindParam(":userid", $with_user_id);
+        }
 
         if (!$stmt->execute()) {
             error_log("[!!] CRITICAL: SQL query unsucessful: "
                 . $stmt->errorInfo()[2]);
-            $this->answers = [];
+            $this->feedback = [];
             return false;
         }
 

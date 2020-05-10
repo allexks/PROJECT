@@ -46,6 +46,22 @@ $sum = 0;
 $max = 0;
 $is_viewing_results = false;
 
+$give_feedback_mode = false;
+$view_feedback_mode = false;
+
+// Get user ID
+
+$user_id = $_SESSION["user_id"] ?? "0";
+$user_id = (int)$user_id;
+
+if ($user_id && $user_id == $test->user_id) {
+    $give_feedback_mode = false;
+    $view_feedback_mode = true;
+} elseif ($user_id) {
+    $give_feedback_mode = true;
+    $view_feedback_mode = false;
+}
+
 // Perform results check if the form is submitted
 
 if (isset($_POST["submit"])) {
@@ -145,6 +161,41 @@ if (isset($_POST["submit"])) {
     }
 }
 
+// Leave feedback
+
+$feedback_for_question = [];
+
+if ($give_feedback_mode) {
+    foreach ($test->questions as $ind_q => $question) {
+        $question->fetchFeedback($user_id);
+
+        if (!isset($question->feedback) || !isset($question->feedback[0])) {
+            $feedback_for_question[(string)$question->id] = "";
+            continue;
+        }
+
+        $feedback_for_question[(string)$question->id] = $question->feedback[0]->text;
+    }
+}
+
+if (isset($_POST["feedback"])) {
+    // TODO: save feedback into DB
+}
+
+// View the feedback
+
+if ($view_feedback_mode) {
+    foreach ($test->questions as $ind_q => $question) {
+        $question->fetchFeedback();
+
+        if ($question->feedback === null) {
+            $question->feedback = [];
+        }
+    }
+}
+
+// Prepare output
+
 $params = [
     "title" => $test->title ?? "",
     "questions" => $test->questions ?? [],
@@ -152,6 +203,9 @@ $params = [
     "sum" => $sum,
     "max" => $max,
     "is_viewing_results" => $is_viewing_results,
+    "give_feedback_mode" => $give_feedback_mode,
+    "view_feedback_mode" => $view_feedback_mode,
+    "feedback_for_question" => $feedback_for_question,
 ];
 
 foreach ($params["questions"] as $ind_q => $question) {
