@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/models/Question.class.php";
+require_once "classes/models/Question.class.php";
 
 /**
  * A test.
@@ -54,6 +55,45 @@ class Test {
         $this->title = $row["title"];
 
         return true;
+    }
+
+    public static function fetchAll($dbconnection) {
+        $table = self::DB_TABLENAME;
+        $userstable = User::DB_TABLENAME;
+
+        $query = "SELECT t.*, u.username
+                  FROM $table t
+                  JOIN $userstable u
+                  ON u.id = t.user_id
+                  ORDER BY t.id DESC";
+
+        $stmt = $dbconnection->prepare($query);
+
+        if(!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            return false;
+        }
+
+        $rows_count = $stmt->rowCount();
+
+        if ($rows_count <= 0) {
+            return [];
+        }
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $test = new Test($dbconnection);
+            $test->id = (int)$row["id"];
+            $test->user_id = (int)$row["user_id"];
+            $test->time_uploaded = $row["time_uploaded"];
+            $test->title = $row["title"];
+            $test->username = $row["username"];
+            $test->fetchQuestions();
+            $result[] = $test;
+        }
+
+        return $result;
     }
 
     public function fetchQuestions() {
