@@ -34,18 +34,22 @@
                             <textarea name="f<?=$question->id?>" rows="2" cols="80"><?=$params["feedback_for_question"][(string)$question->id]?></textarea>
                         <?php elseif ($params["view_feedback_mode"]): ?>
 
-                            <table>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Comment</th>
-                                </tr>
-                                <?php foreach ($question->feedback as $ind_f => $feedback): ?>
+                            <?php if (count($question->feedback) == 0): ?>
+                                <em>No feedback left for this question.</em>
+                            <?php else: ?>
+                                <table>
                                     <tr>
-                                        <td><?$feedback->username?></td>
-                                        <td><?$feedback->text?></td>
+                                        <th>Username</th>
+                                        <th>Comment</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </table>
+                                    <?php foreach ($question->feedback as $ind_f => $feedback): ?>
+                                        <tr>
+                                            <td><?$feedback->username?></td>
+                                            <td><?$feedback->text?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            <?php endif; ?>
 
                         <?php endif; ?>
                     <?php endforeach; ?>
