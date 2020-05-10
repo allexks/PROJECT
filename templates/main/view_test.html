@@ -52,6 +52,10 @@
 
                     <hr />
                     <input type="submit" name="submit" value="See the results!">
+                    
+                    <?php if ($give_feedback_mode): ?>
+                        <input type="submit" name="feedback" value="Submit feedback!">
+                    <?php endif; ?>
                 </form>
             <?php endif; ?>
         </div>
