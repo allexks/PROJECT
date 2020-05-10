@@ -16,13 +16,14 @@ if (!$db) {
     $view->send();
 }
 
-
 if (isset($_POST["submitbutton"]))
 {
 	$name=$_POST["uname"];	
+	$email=$_POST["email"];
 	$password=$_POST["psw"];
 	$user = new User($db);
 	$user->name = $name;
+	$user->email = $email;
 	$user->password = $password;
 	echo $user->name;
 	$user->password = htmlspecialchars(strip_tags($user->password));
@@ -30,5 +31,5 @@ if (isset($_POST["submitbutton"]))
     echo $password_hash;
 }
 
-$view = new View("login");
+$view = new View("signup");
 $view->send();
