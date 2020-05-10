@@ -44,8 +44,8 @@
                                     </tr>
                                     <?php foreach ($question->feedback as $ind_f => $feedback): ?>
                                         <tr>
-                                            <td><?$feedback->username?></td>
-                                            <td><?$feedback->text?></td>
+                                            <td><?=$feedback->username?></td>
+                                            <td><?=$feedback->text?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </table>
