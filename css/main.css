@@ -1,4 +1,5 @@
 body {
+	margin: 0;
     background-color: #e6d080;
 }
 
@@ -46,4 +47,45 @@ body {
 
 .error {
     color: red;
+}
+
+.navbar {
+	overflow: hidden;
+	background-color: #ff884d;
+	padding: 7px;
+	width: 100%;
+}
+
+.navbar a {
+	margin: 0px 17px 0px 15px;
+	color: #fdf4e7;
+	font-size: 1.5rem;
+	text-align: center;
+	text-decoration: none;
+}
+
+.navbar a:active {
+	color: #ffccb3;
+	text-shadow: 2px 2px orange;
+}
+
+.navbar a:hover {
+	color: #ffccb3;
+}
+
+.navbar a:focus {
+	outline: none;
+}
+
+.position-left {
+	float: left;
+}
+
+.navbar img { 
+	width: 39px;
+	height: 30px;
+}
+
+.position-right {
+	float: right;
 }
