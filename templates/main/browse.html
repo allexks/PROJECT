@@ -8,22 +8,32 @@
     </head>
     <body>
         <div id="container">
-            <h2>Welcome, <?=$params["username"]?>!</h2>
+            <?php if (!empty($params["username"])): ?>
+                <h2>Welcome, <?=$params["username"]?>! Browse all your tests.</h2>
+            <?php else: ?>
+                <h2>Welcome, guest user! Browse all tests in the system.</h2>
+            <?php endif; ?>
+
             <?php if (empty($params["tests"])): ?>
                 <h3>No tests available. Start by <a href="import.php">importing</a> one!</h3>
             <?php else: ?>
-                <h3>Tests:</h3>
                 <table id="tests">
                     <tr>
                         <th>Test title</th>
                         <th>Uploaded on</th>
                         <th>Num of questions</th>
+                        <?php if (empty($params["username"])): ?>
+                            <th>Uploaded by</th>
+                        <?php endif; ?>
                     </tr>
                     <?php foreach ($params["tests"] as $index => $test): ?>
                         <tr>
                             <td><a href="view.php?id=<?=$test->id?>"><?=$test->title?></a></td>
                             <td><?=$test->time_uploaded?></td>
                             <td><?=count($test->questions)?></td>
+                            <?php if (empty($params["username"])): ?>
+                                <td><?=$test->username?></td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </table>
