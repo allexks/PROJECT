@@ -21,8 +21,12 @@
 			    <input type="password" placeholder="Enter Password" name="psw" required>
 			    <br>
 			    <button type="submit" name='submitbutton'>Signup</button>
-			
-		</form> 
+			</form> 
+			<?php if (empty($params["msg"])): ?>
+		
+       <?php else: ?>
+       	<h3>Username or email already used</h3>
+       <?php endif; ?>
 	</div>
     </body>
 </html>

@@ -89,7 +89,7 @@ class User {
 
         $stmt = $this->conn->prepare($query);
         $this->username = htmlspecialchars(strip_tags($this->username));
-        $stmt->bindParam(1, $this->email);
+        $stmt->bindParam(1, $this->username);
 
         if (!$stmt->execute()) {
             error_log("[!!] CRITICAL: SQL query unsucessful: "

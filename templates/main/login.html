@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <body>
     	<div id='container'>
         <h1>Login page</h1>
-    	 <form action="" method="POST">
+        <form action="" method="POST">
 			  
 			  	
 			    <label for="uname"><b>Username</b></label>
@@ -19,8 +19,17 @@
 			    <input type="password" placeholder="Enter Password" name="psw" required>
 			    <br>
 			    <button type="submit" name='submitbutton'>Login</button>
-			
+			    <br>
+			    <br>
+			    <h10>Don't have an account? <a href="signup.php">Sign up</a></h10>
 		</form> 
+                
+		<?php if (empty($params["msg"])): ?>
+		
+       <?php else: ?>
+       	<h3>Invalid username or password!</h3>
+       <?php endif; ?>
+    	 
 	</div>
     </body>
 </html>
