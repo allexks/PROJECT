@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -7,29 +7,27 @@
         <script src="js/login.js" defer></script>
     </head>
     <body>
-    	<div id='container'>
+        <div id='container'>
         <h1>Login page</h1>
         <form action="" method="POST">
-			  
-			  	
-			    <label for="uname"><b>Username</b></label>
-			    <input type="text" placeholder="Enter Username" name="uname" required>
-			    <br>
-			    <label for="psw"><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="psw" required>
-			    <br>
-			    <button type="submit" name='submitbutton'>Login</button>
-			    <br>
-			    <br>
-			    <h10>Don't have an account? <a href="signup.php">Sign up</a></h10>
-		</form> 
+              
                 
-		<?php if (empty($params["msg"])): ?>
-		
-       <?php else: ?>
-       	<h3>Invalid username or password!</h3>
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+                <br>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <br>
+                <button type="submit" name='submitbutton'>Login</button>
+                <br>
+                <br>
+                <span>Don't have an account? <a href="signup.php">Sign up</a></span>
+        </form> 
+                
+        <?php if (!empty($params["msg"])): ?>
+            <h3 class="error">Invalid username or password!</h3>
        <?php endif; ?>
-    	 
-	</div>
+         
+    </div>
     </body>
 </html>

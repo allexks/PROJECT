@@ -35,10 +35,6 @@ if (isset($_POST["submitbutton"]))
 		$_SESSION["user_id"] = $user->id;
 		header("Location: index.php");
 	}
-	// echo $user->name;
-	// $user->password = htmlspecialchars(strip_tags($user->password));
- //    $password_hash = password_hash($user->password, PASSWORD_BCRYPT);
- //    echo $password_hash;
 }
 
 $view = new View("signup");

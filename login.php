@@ -16,8 +16,6 @@ if (!$db) {
     $view->send();
 }
 
-$msg = '';
-
 if (isset($_POST["submitbutton"]))
 {
 	$name=$_POST["uname"];	
@@ -25,7 +23,6 @@ if (isset($_POST["submitbutton"]))
 	$user = new User($db);
 	$user->username = $name;
 	$is_logged_in = $user->usernameExists() && password_verify($password, $user->password);
-	$msg = "";
 	if($is_logged_in) {
 		$_SESSION["user_id"] = $user->id;
 		header("Location: index.php");
