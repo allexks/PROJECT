@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
         <title>Browse tests</title>
-        <link rel="stylesheet" href="css/main.css">
         <script src="js/browse.js" defer></script>
+        <?php include "head-inc.php" ?>
     </head>
     <body>
+        <?php include "navbar-inc.php" ?>
         <div id="container">
             <?php if (!empty($params["username"])): ?>
                 <h2>Welcome, <?=$params["username"]?>! Browse all your tests.</h2>

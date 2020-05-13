@@ -1,12 +1,12 @@
 body {
 	margin: 0;
-    background-color: #e6d080;
+    background-color: #FED3B3;
 }
 
 #container {
-    background-color: #fff8d3;
+    background-color: #FBECE3;
     max-width: 600px;
-    margin: 0px auto;
+    margin: 30px auto;
     padding: 0px 10px 20px;
     border-radius: 10px;
     border: solid 2px grey;
