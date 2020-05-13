@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/models/Test.class.php";
+require_once "classes/models/Feedback.class.php";
 require_once "classes/util/Database.class.php";
 require_once "classes/util/View.class.php";
 
@@ -46,9 +47,25 @@ $sum = 0;
 $max = 0;
 $is_viewing_results = false;
 
+$give_feedback_mode = false;
+$view_feedback_mode = false;
+
+// Get user ID
+
+$user_id = $_SESSION["user_id"] ?? "0";
+$user_id = (int)$user_id;
+
+if ($user_id && $user_id == $test->user_id) {
+    $give_feedback_mode = false;
+    $view_feedback_mode = true;
+} elseif ($user_id) {
+    $give_feedback_mode = true;
+    $view_feedback_mode = false;
+}
+
 // Perform results check if the form is submitted
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"]) || isset($_POST["feedback"])) {
 
     $is_viewing_results = true;
 
@@ -145,6 +162,82 @@ if (isset($_POST["submit"])) {
     }
 }
 
+
+if (isset($_POST["feedback"]) && $user_id) {
+    foreach ($_POST as $key => $value) {
+
+        // Feedback for the questions are in string named "fXXX" where "XXX" is the id of the question
+
+        if (!preg_match("/^[fF][0-9]+$/", $key)) {
+            continue;
+        }
+
+        $question_id = substr($key, 1, strlen($key) - 1) ?? "0";
+        $question_id = (int)$question_id;
+
+        if (!$question_id) {
+            continue;
+        }
+
+        // Update feedback
+
+        $feedback = new Feedback($db);
+        $feedback->question_id = $question_id;
+        $feedback->user_id = $user_id;
+
+        if ($feedback->fetchGivenUserAndQuestionIfAvailable() === false) {
+            // error with the query; skip it for now
+            continue;
+        }
+
+        $feedback->text = $value;
+
+        if (!$feedback->id && !empty($value)) {
+            // No previous feedback here.
+            // If there is such now, let's INSERT it into the database.
+            $feedback->create();
+
+        } elseif (empty($value)) {
+            // Empty text field means no feedback => delete the entry.
+            $feedback->delete();
+
+        } else {
+            $feedback->update();
+        }
+    }
+}
+
+// Leave feedback
+
+$feedback_for_question = [];
+
+if ($give_feedback_mode) {
+    foreach ($test->questions as $ind_q => $question) {
+        $question->fetchFeedback($user_id);
+
+        if (!isset($question->feedback) || !isset($question->feedback[0])) {
+            $feedback_for_question[(string)$question->id] = "";
+            continue;
+        }
+
+        $feedback_for_question[(string)$question->id] = $question->feedback[0]->text;
+    }
+}
+
+// View the feedback
+
+if ($view_feedback_mode) {
+    foreach ($test->questions as $ind_q => $question) {
+        $question->fetchFeedback();
+
+        if ($question->feedback === null) {
+            $question->feedback = [];
+        }
+    }
+}
+
+// Prepare output
+
 $params = [
     "title" => $test->title ?? "",
     "questions" => $test->questions ?? [],
@@ -152,6 +245,9 @@ $params = [
     "sum" => $sum,
     "max" => $max,
     "is_viewing_results" => $is_viewing_results,
+    "give_feedback_mode" => $give_feedback_mode,
+    "view_feedback_mode" => $view_feedback_mode,
+    "feedback_for_question" => $feedback_for_question,
 ];
 
 foreach ($params["questions"] as $ind_q => $question) {

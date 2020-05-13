@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/models/Answer.class.php";
+require_once "classes/models/Feedback.class.php";
 
 /**
  * A question.
@@ -15,6 +16,7 @@ class Question {
     public $order_number;
 
     public $answers;
+    public $feedback;
 
     private $conn;
 
@@ -86,15 +88,61 @@ class Question {
 
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $test = new Answer($this->conn);
-            $test->id = (int)$row["id"];
-            $test->question_id = (int)$row["question_id"];
-            $test->is_correct = (bool)$row["is_correct"];
-            $test->text = $row["text"];
-            $result[] = $test;
+            $ans = new Answer($this->conn);
+            $ans->id = (int)$row["id"];
+            $ans->question_id = (int)$row["question_id"];
+            $ans->is_correct = (bool)$row["is_correct"];
+            $ans->text = $row["text"];
+            $result[] = $ans;
         }
 
         $this->answers = $result;
+        return true;
+    }
+
+    public function fetchFeedback($with_user_id = null) {
+        $userstmt = isset($with_user_id) && !empty($with_user_id) ? "AND f.user_id = :userid" : "";
+
+        $questionstable = self::DB_TABLENAME;
+        $fbtable = Feedback::DB_TABLENAME;
+
+        $query = "SELECT f.*
+                  FROM $fbtable f
+                  JOIN $questionstable q
+                  ON f.question_id = q.id
+                  WHERE q.id = :id
+                  $userstmt";
+
+        $stmt = $this->conn->prepare($query);
+        $questionid = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(":id", $questionid);
+        if (isset($with_user_id) && !empty($with_user_id)) {
+            $stmt->bindParam(":userid", $with_user_id);
+        }
+
+        if (!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            $this->feedback = [];
+            return false;
+        }
+
+        $rows_count = $stmt->rowCount();
+
+        if ($rows_count <= 0) {
+            $this->feedback = [];
+            return true;
+        }
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $fb = new Feedback($this->conn);
+            $fb->id = (int)$row["id"];
+            $fb->fetch();
+            $result[] = $fb;
+        }
+
+        $this->feedback = $result;
         return true;
     }
 }
