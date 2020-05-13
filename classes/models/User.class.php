@@ -26,10 +26,17 @@ class User {
         $tablename = self::DB_TABLENAME;
 
         $query = "INSERT INTO $tablename
-                  SET
-                      username = :username
-                      email = :email,
-                      password = :password";
+                  (
+                      `username`,
+                      `email`,
+                      `password`
+                  )
+                  VALUES
+                  (
+                      :username,
+                      :email,
+                      :password
+                  )";
 
         $stmt = $this->conn->prepare($query);
 
@@ -43,7 +50,15 @@ class User {
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
         $stmt->bindParam(":password", $password_hash);
 
-        return $stmt->execute();
+        if (!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            return false;
+        }
+
+        $this->emailExists(); // in order to fetch the id
+
+        return true;
     }
 
     public function emailExists() {
@@ -74,6 +89,39 @@ class User {
 
         $this->id = (int)$row['id'];
         $this->username = $row['username'];
+        $this->password = $row['password'];
+
+        return true;
+    }
+
+    public function usernameExists() {
+        $tablename = self::DB_TABLENAME;
+
+        $query = "SELECT id, username, password
+                  FROM $tablename
+                  WHERE username = ?
+                  LIMIT 0,1";
+
+        $stmt = $this->conn->prepare($query);
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $stmt->bindParam(1, $this->username);
+
+        if (!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            return false;
+        }
+
+        $rows_count = $stmt->rowCount();
+
+        if ($rows_count <= 0) {
+            return false;
+        }
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = (int)$row['id'];
+        $this->email = $row['email'];
         $this->password = $row['password'];
 
         return true;
