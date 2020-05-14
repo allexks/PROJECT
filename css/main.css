@@ -1,10 +1,11 @@
 body {
 	margin: 0;
-    background-color: #FED3B3;
+    background-color: #e7e3e8;
 }
 
 #container {
-    background-color: #FBECE3;
+    /*background-color: #FBECE3;*/
+    background-color: #ffffff;
     max-width: 600px;
     margin: 30px auto;
     padding: 0px 10px 20px;
@@ -51,26 +52,22 @@ body {
 
 .navbar {
 	overflow: hidden;
-	background-color: #ff884d;
+	/*background-color: #ff884d;*/
+	background-color: #204060;
 	padding: 7px;
 	width: 100%;
 }
 
 .navbar a {
 	margin: 0px 17px 0px 15px;
-	color: #fdf4e7;
+	color: #e7e3e8;
 	font-size: 1.5rem;
 	text-align: center;
 	text-decoration: none;
 }
 
-.navbar a:active {
-	color: #ffccb3;
-	text-shadow: 2px 2px orange;
-}
-
 .navbar a:hover {
-	color: #ffccb3;
+	color: #B4A7B7;
 }
 
 .navbar a:focus {
@@ -88,4 +85,30 @@ body {
 
 .position-right {
 	float: right;
+}
+
+input[type="file"] {
+	display: none;
+}
+
+.align-form-content {
+    text-align: center;
+}
+
+.custom-input-file {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 1.3rem;
+	color: #ffffff;
+	background-color: #2d5986;
+	border: 2px solid #2d5986;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.custom-input-file:hover {
+	color: #ffffff;
+	background-color: #204060;
+	border-color: #204060;
+	cursor: pointer;
 }

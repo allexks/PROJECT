@@ -7,6 +7,25 @@
     </head>
     <body>
     	<?php include "navbar-inc.php" ?>
-        <h1>Import page</h1>
+
+    	<div id="container">
+    		<h1>Добавяне на тест</h1>
+    		<form name="SubmitForm" action="import-csv.php" method="POST" class="align-form-content">
+    			<label for="file-upload" class="custom-input-file">
+    				Добави тест
+    			</label>
+    			<input onchange="AutoSubmit();" id="file-upload" name="file-upload" type="file" />
+    		</form>
+    	</div>
+
+		<script type="text/javascript">
+			function AutoSubmit() {
+				val = document.getElementById("file-upload").value;
+				
+				if (val) {
+					document.SubmitForm.submit();
+				}
+			}
+		</script>
     </body>
 </html>
