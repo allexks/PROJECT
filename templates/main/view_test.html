@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
         <title>View test</title>
-        <link rel="stylesheet" href="css/main.css">
         <script src="js/view_test.js" defer></script>
+        <?php include "includes/head-inc.php" ?>
     </head>
     <body>
+        <?php include "includes/navbar-inc.php" ?>
         <div id="container">
             <h1><?=$params["title"]?></h1>
             <?php if ($params["is_viewing_results"]): ?>
