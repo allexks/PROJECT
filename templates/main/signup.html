@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
         <title>Signup</title>
-        <link rel="stylesheet" href="css/main.css">
         <script src="js/signup.js" defer></script>
+        <?php include "includes/head-inc.php" ?>
     </head>
     <body>
+        <?php include "includes/navbar-inc.php" ?>
         <div id='container'>
         <h1>Signup page</h1>
-         <form action="" method="POST">   
-                
+         <form class="align-form-content" action="" method="POST">             
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" required>
                 <br>
-                <label for="email"><b>Email</b></label>
+                <label class="position-email-label" for="email"><b>Email</b></label>
                 <input type="text" placeholder="Enter Email" name="email" required>
                 <br>
                 <label for="psw"><b>Password</b></label>

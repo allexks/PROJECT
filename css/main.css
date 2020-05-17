@@ -50,6 +50,10 @@ body {
     color: red;
 }
 
+.success {
+	color: green;
+}
+
 .navbar {
 	overflow: hidden;
 	/*background-color: #ff884d;*/
@@ -104,6 +108,12 @@ input[type="file"] {
 	border: 2px solid #2d5986;
 	border-radius: 5px;
 	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .custom-input-file:hover {
@@ -111,4 +121,83 @@ input[type="file"] {
 	background-color: #204060;
 	border-color: #204060;
 	cursor: pointer;
+}
+
+button {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 1.3rem;
+	color: #ffffff;
+	background-color: #2d5986;
+	border: 2px solid #2d5986;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	color: #ffffff;
+	background-color: #204060;
+	border-color: #204060;
+	cursor: pointer;
+}
+
+button:focus {
+	outline: none;
+}
+
+a {
+	color: #2d5986;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #204060;
+}
+
+a:focus {
+	outline: none;
+}
+
+input[type="text"], input[type="password"] {
+	width: 300px;
+	height: 25px;
+	border: 1px solid #2d5986;
+	border-radius: 3px;
+	margin: 10px;
+}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+	color: #204060;
+	padding: 3px;
+	font-size: 0.8rem;
+}
+
+input[type="submit"] {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 1.3rem;
+	color: #ffffff;
+	background-color: #2d5986;
+	border: 2px solid #2d5986;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	color: #ffffff;
+	background-color: #204060;
+	border-color: #204060;
+	cursor: pointer;
+}
+
+input[type="submit"]:focus {
+	outline: none;
+}
+
+.position-email-label {
+	margin-right: 30px;
+}
+
+.position-password-label {
+	margin-right: 5px;
 }
