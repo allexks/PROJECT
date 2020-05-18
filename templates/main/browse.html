@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
         <title>Browse tests</title>
-        <link rel="stylesheet" href="css/main.css">
         <script src="js/browse.js" defer></script>
+        <?php include "includes/head-inc.php" ?>
     </head>
     <body>
+        <?php include "includes/navbar-inc.php" ?>
+        
+        <?php if (!empty($params["logout_msg"])): ?>
+        <div>
+            <h2 class="success"><?=$params["logout_msg"]?></h2>
+        </div>
+        <?php endif; ?>
+
         <div id="container">
             <?php if (!empty($params["username"])): ?>
                 <h2>Welcome, <?=$params["username"]?>! Browse all your tests.</h2>

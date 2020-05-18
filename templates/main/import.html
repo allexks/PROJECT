@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
         <title>Import</title>
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/import.js" defer></script>
+        <script type="text/javascript" src="js/import.js" defer></script>
+        <?php include "includes/head-inc.php" ?>
     </head>
     <body>
-        <h1>Import page</h1>
+    	<?php include "includes/navbar-inc.php" ?>
+
+    	<div id="container">
+    		<h1>Import test</h1>
+    		<form name="SubmitForm" enctype="multipart/form-data" action="import-csv.php" method="POST" class="align-form-content">
+    			<label for="file-upload" class="custom-input-file">
+    				Import
+    			</label>
+    			<input onchange="AutoSubmit();" id="file-upload" name="file-upload" type="file" />
+    		</form>
+    	</div>
     </body>
 </html>
