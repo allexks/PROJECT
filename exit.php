@@ -16,6 +16,7 @@ if (!$db) {
 
 # TO DO
 unset($_SESSION["user_id"]);
+$_SESSION["logout_msg"] = "Successful log out.";
 header("Location: index.php");
 
 $view = new View("exit");

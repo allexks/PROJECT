@@ -25,13 +25,28 @@ if ($tests === false) {
     $view->send();
 }
 
-// Display them
-
-$view = new View("browse");
-
 $params = [
     "username" => "",
     "tests" => $tests,
+    "logout_msg" => "",
 ];
 
+// To display correct message, check if the user is logged in
+if (isset($_SESSION["user_id"])) {
+	$user_id = (int)$_SESSION["user_id"] ?? 0;
+	
+	$user = new User($db);
+	$user->id = $user_id;
+
+	if ($user->idExists()) {
+		$params["username"] = $user->username;
+	}
+}
+
+if (isset($_SESSION["logout_msg"])) {
+	$params["logout_msg"] = $_SESSION["logout_msg"];
+	unset($_SESSION["logout_msg"]);
+}
+
+$view = new View("browse");
 $view->send($params);
