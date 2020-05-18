@@ -13,6 +13,21 @@
 	    $view->send();
 	}
 
+	if (!isset($_SESSION["user_id"])) {
+		$view = new View("login_error");
+		$view->send();
+	}
+
+	$user_id = (int)$_SESSION["user_id"] ?? 0;
+
+	$user = new User($db);
+	$user->id = $user_id;
+
+	if (!$user->idExists()){
+		$view = new View("login_error");
+		$view->send();
+	}
+
 	$import = new Import($db);
 
 	try {
@@ -56,12 +71,24 @@
 
 		while (($line = fgets($file_csv)) !== false) {
 			$line_array = explode(',', $line);
+			$array_size = count($line_array);
+
+			if ($array_size < 6) {
+				throw new RuntimeException("Invalid parameters count.");
+			}
 
 			$test_id = $import->importTest($_SESSION["user_id"], $line_array[0]);
 
+			if ($test_id === false) {
+				throw new RuntimeException("Error occurred during test import.");
+			}
+
 			$question_id = $import->importQuestion($test_id, $line_array[3]);
 
-			$array_size = count($line_array);
+			if ($question_id === false) {
+				throw new RuntimeException("Error occurred during test import.");
+			}
+
 			for ($i = 4; $i < $array_size; ++$i) {
 				if ($i % 2 == 0) {
 					$percent = $line_array[$i];
@@ -69,7 +96,6 @@
 				else {
 					$answer = $line_array[$i];
 					$res = $import->importAnswer($question_id, $answer, $percent);
-					print_r($res);
 				}
 			}
 		} 

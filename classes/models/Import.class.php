@@ -2,12 +2,11 @@
 
 require_once "classes/models/User.class.php";
 require_once "classes/util/Database.class.php";
+require_once "classes/models/Test.class.php";
+require_once "classes/models/Question.class.php";
+require_once "classes/models/Answer.class.php";
 
 class Import {
-	const DB_TABLENAME_TESTS = "tests";
-	const DB_TABLENAME_QUESTIONS = "questions";
-	const DB_TABLENAME_ANSWERS =  "answers";
-
     private $conn;
 
     public function __construct($db) {
@@ -15,7 +14,7 @@ class Import {
     }
 
     public function importTest($test_user_id, $testtitle) {
-    	$testtable = self::DB_TABLENAME_TESTS;
+    	$testtable = Test::DB_TABLENAME;
 
     	$search_test_query = "SELECT t.*
     						FROM $testtable t
@@ -77,10 +76,12 @@ class Import {
 
        			return (int)$result["id"];
        		}
+
+       	return false;
     }
 
     public function importQuestion($test_id, $question) {
-    	$questiontable = self::DB_TABLENAME_QUESTIONS;
+    	$questiontable = Question::DB_TABLENAME;
 
     	$search_question_query = "SELECT q.*
     						FROM $questiontable q
@@ -163,10 +164,13 @@ class Import {
 
    			return (int)$result["id"];
    		}
+   		else {
+   			return false;
+   		}
     }
 
     public function importAnswer($question_id, $answer, $correct) {
-    	$answertable = self::DB_TABLENAME_ANSWERS;
+    	$answertable = Answer::DB_TABLENAME;
 
     	$search_answer_query = "SELECT a.*
     						FROM $answertable a
@@ -209,7 +213,6 @@ class Import {
 	        	$prep_is_correct = 0;
 	        }
 
-
 	        $stmt_insert->bindParam(":question_id", $prep_question_id);
 	        $stmt_insert->bindParam(":answer", $prep_answer);
 	        $stmt_insert->bindParam(":is_correct", $prep_is_correct);
@@ -219,6 +222,8 @@ class Import {
 	                . $stmt_insert->errorInfo()[2]);
 	            return false;
 	        }
+
+	        return true;
         }
     }
 }
