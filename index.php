@@ -26,6 +26,7 @@ if ($tests === false) {
 }
 
 $params = [
+    "all_system_tests" => true,
     "username" => "",
     "tests" => $tests,
     "logout_msg" => "",
@@ -34,7 +35,7 @@ $params = [
 // To display correct message, check if the user is logged in
 if (isset($_SESSION["user_id"])) {
 	$user_id = (int)$_SESSION["user_id"] ?? 0;
-	
+
 	$user = new User($db);
 	$user->id = $user_id;
 

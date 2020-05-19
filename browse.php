@@ -38,6 +38,7 @@ if (!$user->idExists()){
 $view = new View("browse");
 
 $params = [
+    "all_system_tests" => false,
     "username" => "",
     "tests" => [],
 ];
