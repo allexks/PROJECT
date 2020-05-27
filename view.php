@@ -7,15 +7,7 @@ require_once "classes/util/View.class.php";
 
 session_start();
 
-// Establish database connection
-
-$database = new Database();
-$db = $database->getNewConnection();
-
-if (!$db) {
-    $view = new View("database_error");
-    $view->send();
-}
+require "includes/db.php";
 
 // Get test ID
 
@@ -23,7 +15,7 @@ $test_id = $_GET["id"] ?? "0";
 $test_id = (int)$test_id;
 
 if (!$test_id) {
-    $view = new View("not_found");
+    $view = new View("not_found", "Not Found");
     $view->send();
 }
 
@@ -33,12 +25,12 @@ $test = new Test($db);
 $test->id = $test_id;
 
 if (!$test->fetch()) {
-    $view = new View("not_found");
+    $view = new View("not_found", "Not Found");
     $view->send();
 }
 
 if (!$test->fetchQuestions()) {
-    $view = new View("database_error");
+    $view = new View("database_error", "Database error!");
     $view->send();
 }
 
@@ -257,5 +249,5 @@ foreach ($params["questions"] as $ind_q => $question) {
     }
 }
 
-$view = new View("view_test");
+$view = new View("view_test", "View test");
 $view->send($params);

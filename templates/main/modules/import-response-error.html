@@ -1,0 +1,7 @@
+<div id="container">
+    <?php if (!empty($params["message"])): ?>
+        <h2 class="error"><?=$params["message"]?></h2>
+    <?php else: ?>
+        <h2 class="error">Unknown error occurred.</h2>
+    <?php endif; ?>
+</div>

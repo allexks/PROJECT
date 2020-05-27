@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><?=$this->title?></title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="images/logo.ico">
+    	<link rel="stylesheet" href="css/<?=SETTINGS["TEMPLATE_NAME"]?>.css">
+        <script src="js/<?=$this->module?>.js" defer></script>
+    </head>
+    <body>
+    	<?php include SETTINGS["TEMPLATES_DIR"] . "/" . SETTINGS["TEMPLATE_NAME"] . "/navbar.html" ?>
+    	<?php include SETTINGS["TEMPLATES_DIR"] . "/" . SETTINGS["TEMPLATE_NAME"] . "/modules/" . $this->module . ".html" ?>
+    </body>
+</html>

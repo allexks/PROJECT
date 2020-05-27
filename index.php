@@ -6,22 +6,14 @@ require_once "classes/util/View.class.php";
 
 session_start();
 
-// Establish database connection
-
-$database = new Database();
-$db = $database->getNewConnection();
-
-if (!$db) {
-    $view = new View("database_error");
-    $view->send();
-}
+require "includes/db.php";
 
 // Fetch all tests
 
 $tests = Test::fetchAll($db);
 
 if ($tests === false) {
-    $view = new View("database_error");
+    $view = new View("database_error", "Database error!");
     $view->send();
 }
 
@@ -49,5 +41,5 @@ if (isset($_SESSION["logout_msg"])) {
 	unset($_SESSION["logout_msg"]);
 }
 
-$view = new View("browse");
+$view = new View("browse", "Welcome");
 $view->send($params);
