@@ -97,7 +97,7 @@ class User {
     public function usernameExists() {
         $tablename = self::DB_TABLENAME;
 
-        $query = "SELECT id, username, password
+        $query = "SELECT id, email, password
                   FROM $tablename
                   WHERE username = ?
                   LIMIT 0,1";
