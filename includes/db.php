@@ -1,5 +1,8 @@
 <?php
 
+require_once "classes/util/Database.class.php";
+require_once "classes/util/View.class.php";
+
 // Establish database connection
 
 $database = new Database();

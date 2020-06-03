@@ -1,7 +1,6 @@
 <?php
-require_once "classes/util/View.class.php";
+
 require_once "classes/models/Import.class.php";
-require_once "classes/util/Database.class.php";
 
 session_start();
 

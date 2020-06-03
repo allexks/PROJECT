@@ -1,5 +1,8 @@
 <?php
 
+require_once "classes/models/User.class.php";
+require_once "classes/util/View.class.php";
+
 // Determine currect logged user
 
 if (!isset($_SESSION["user_id"])) {

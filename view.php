@@ -2,8 +2,6 @@
 
 require_once "classes/models/Test.class.php";
 require_once "classes/models/Feedback.class.php";
-require_once "classes/util/Database.class.php";
-require_once "classes/util/View.class.php";
 
 session_start();
 
