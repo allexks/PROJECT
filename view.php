@@ -109,6 +109,7 @@ if (isset($_POST["submit"]) || isset($_POST["feedback"])) {
 
             // Find the answer among the real ones
 
+            $wrong = false;
             foreach ($question->answers as $ind_a => $answer) {
                 if ($answer->id != $answer_id) {
                     continue;
@@ -119,8 +120,13 @@ if (isset($_POST["submit"]) || isset($_POST["feedback"])) {
                 } else {
                     // Even one wrong answer is enough to mark the question as wrongly answered.
                     $correct_count = 0;
+                    $wrong = true;
                     break;
                 }
+            }
+
+            if ($wrong) {
+                break;
             }
         }
 
