@@ -48,8 +48,7 @@ try {
         throw new RuntimeException("Could not open the file.");
     }
 
-    while (($line = fgets($file_csv)) !== false) {
-        $line_array = explode(',', $line);
+    while (($line_array = fgetcsv($file_csv)) !== false) {
         $array_size = count($line_array);
 
         if ($array_size < 6) {
