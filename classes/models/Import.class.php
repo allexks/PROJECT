@@ -62,7 +62,7 @@ class Import {
 
 			$stmt_get_id = $this->conn->prepare($test_id);
 	        $stmt_get_id->bindParam(":testtitle", $prep_testtitle);
-            
+
 			if (!$stmt_get_id->execute()) {
 	            error_log("[!!] CRITICAL: SQL query unsucessful: "
 	                . $stmt_get_id->errorInfo()[2]);
@@ -80,7 +80,7 @@ class Import {
        	return false;
     }
 
-    public function importQuestion($test_id, $question) {
+    public function importQuestion($test_id, $question, $is_open) {
     	$questiontable = Question::DB_TABLENAME;
 
     	$search_question_query = "SELECT q.*
@@ -119,20 +119,24 @@ class Import {
 		if ($rows_count <= 0) {
 	        $insert_question_query = "INSERT INTO $questiontable
 				                  (
-				                      test_id,
-				                      text,
-				                      order_number
+				                      `test_id`,
+				                      `is_open`,
+				                      `text`,
+				                      `order_number`
 				                  )
 				                  VALUES
 				                  (
 				                      :test_id,
+                                      :isopen,
 				                      :question,
 				                      :order_number
 				                  )";
 
 	  		$stmt_insert = $this->conn->prepare($insert_question_query);
 	        $prep_order_num = htmlspecialchars(strip_tags($questions_count));
+            $prep_is_open = (int)$is_open;
 	        $stmt_insert->bindParam(":test_id", $prep_test_id);
+	        $stmt_insert->bindParam(":isopen", $prep_is_open);
 	        $stmt_insert->bindParam(":question", $prep_question);
 	        $stmt_insert->bindParam(":order_number", $prep_order_num);
 
