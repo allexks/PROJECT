@@ -130,6 +130,7 @@ class Test {
             $q = new Question($this->conn);
             $q->id = (int)$row["id"];
             $q->test_id = (int)$row["test_id"];
+            $q->is_open = (bool)$row["is_open"];
             $q->order_number = (int)$row["order_number"];
             $q->text = $row["text"];
             $q->fetchAnswers();
