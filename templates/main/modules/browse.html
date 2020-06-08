@@ -17,6 +17,7 @@
     <?php else: ?>
         <table id="tests">
             <tr>
+                <th></th>
                 <th>Test title</th>
                 <th>Uploaded on</th>
                 <th>Num of questions</th>
@@ -26,6 +27,7 @@
             </tr>
             <?php foreach ($params["tests"] as $index => $test): ?>
                 <tr>
+                	<td>Export</td>
                     <td><a href="view.php?id=<?=$test->id?>"><?=$test->title?></a></td>
                     <td><?=$test->time_uploaded?></td>
                     <td><?=count($test->questions)?></td>
