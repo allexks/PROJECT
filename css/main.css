@@ -88,7 +88,7 @@ textarea {
 	float: left;
 }
 
-.navbar img { 
+.navbar img {
 	width: 39px;
 	height: 30px;
 }
@@ -206,4 +206,53 @@ input[type="submit"]:focus {
 
 .position-password-label {
 	margin-right: 5px;
+}
+
+.edit-delete-button {
+	padding: 0px;
+	background-color: transparent;
+	border: 0px;
+	margin: 10px auto;
+}
+
+.edit-delete-button:hover {
+	padding: 0px;
+	background-color: transparent;
+	border: 0px;
+}
+
+.delete-test-icon {
+	margin: auto auto;
+	color: #ff0000;
+	transform: scale(0.75,0.75);
+}
+
+.delete-test-icon:hover {
+	color: #cc0000;
+	transform: scale(0.90,0.90);
+}
+
+.edit-test-icon {
+	margin: auto auto;
+	color: #204060;
+	transform: scale(0.80,0.80);
+}
+
+.edit-test-icon:hover {
+	color: #132639;
+	transform: scale(0.93,0.93);
+}
+
+.test-title {
+	width: 83%;
+	display: inline-block;
+	margin: 10px 0px;
+}
+
+.edit-delete-button-wrapper {
+	text-align: center;
+	margin: auto auto;
+	height: 60px;
+	width: 7%;
+	display:inline-block;
 }
