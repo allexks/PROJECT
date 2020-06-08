@@ -6,6 +6,7 @@ require_once "classes/models/Feedback.class.php";
 session_start();
 
 require "includes/db.php";
+$can_manage_test = false;
 
 // Get test ID
 
@@ -48,9 +49,11 @@ $user_id = (int)$user_id;
 if ($user_id && $user_id == $test->user_id) {
     $give_feedback_mode = false;
     $view_feedback_mode = true;
+    $can_manage_test = true;
 } elseif ($user_id) {
     $give_feedback_mode = true;
     $view_feedback_mode = false;
+    $can_manage_test = false;
 }
 
 // Perform results check if the form is submitted
@@ -244,6 +247,7 @@ $params = [
     "give_feedback_mode" => $give_feedback_mode,
     "view_feedback_mode" => $view_feedback_mode,
     "feedback_for_question" => $feedback_for_question,
+    "can_manage_test" => $can_manage_test,
 ];
 
 foreach ($params["questions"] as $ind_q => $question) {
