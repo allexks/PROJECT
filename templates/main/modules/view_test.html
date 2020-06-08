@@ -13,7 +13,7 @@
                 <hr />
                 <strong class="question <?=$params["question_classes"][(string)$question->id]?>"><?=$ind_q + 1?>. <?=$question->text?></strong>
 
-                <?php if ($question->is_open): ?>
+                <?php if ($question->isOpen()): ?>
                     <em>(open-answer question)</em> <br />
                 <?php else: ?>
                     <?php foreach ($question->answers as $ind_a => $answer): ?>

@@ -80,7 +80,7 @@ class Import {
        	return false;
     }
 
-    public function importQuestion($test_id, $question, $is_open) {
+    public function importQuestion($test_id, $question, $q_type) {
     	$questiontable = Question::DB_TABLENAME;
 
     	$search_question_query = "SELECT q.*
@@ -120,23 +120,23 @@ class Import {
 	        $insert_question_query = "INSERT INTO $questiontable
 				                  (
 				                      `test_id`,
-				                      `is_open`,
+				                      `type`,
 				                      `text`,
 				                      `order_number`
 				                  )
 				                  VALUES
 				                  (
 				                      :test_id,
-                                      :isopen,
+                                      :type,
 				                      :question,
 				                      :order_number
 				                  )";
 
 	  		$stmt_insert = $this->conn->prepare($insert_question_query);
 	        $prep_order_num = htmlspecialchars(strip_tags($questions_count));
-            $prep_is_open = (int)$is_open;
+	        $prep_q_type = strtoupper(htmlspecialchars(strip_tags($q_type)));
 	        $stmt_insert->bindParam(":test_id", $prep_test_id);
-	        $stmt_insert->bindParam(":isopen", $prep_is_open);
+	        $stmt_insert->bindParam(":type", $prep_q_type);
 	        $stmt_insert->bindParam(":question", $prep_question);
 	        $stmt_insert->bindParam(":order_number", $prep_order_num);
 

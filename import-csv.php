@@ -61,25 +61,21 @@ try {
             throw new RuntimeException("Error occurred during test import.");
         }
 
-        $close_q_types = ["multichoice", "truefalse"];
-        $open_q_types = ["shortanswer", "numerical", "essay"];
+        $q_types = ["multichoice", "truefalse", "shortanswer", "numerical", "essay"];
 
         $type = strtolower($line_array[1]);
 
-        $is_open = in_array($type, $open_q_types);
-        $is_closed = in_array($type, $close_q_types);
-
-        if (!$is_open && !$is_closed) {
+        if (!in_array($type, $q_types)) {
             continue; // question type not supported => skip it for now
         }
 
-        $question_id = $import->importQuestion($test_id, $line_array[3], $is_open);
+        $question_id = $import->importQuestion($test_id, $line_array[3], $type);
 
         if ($question_id === false) {
             throw new RuntimeException("Error occurred during test import.");
         }
 
-        if ($is_closed) {
+        if ($type === "multichoice" || $type === "truefalse") {
             for ($i = 4; $i < $array_size; ++$i) {
                 if ($i % 2 == 0) {
                     $percent = $line_array[$i];

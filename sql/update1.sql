@@ -26,7 +26,7 @@ USE `WWW_PROJECT_62136_62152_62177`;
 -- --------------------------------------------------------
 
 -- Добавяне на отворени въпроси
-ALTER TABLE `questions` ADD `is_open` BOOLEAN NOT NULL DEFAULT FALSE AFTER `test_id`;
+ALTER TABLE `questions` ADD `type` ENUM('MULTICHOICE','TRUEFALSE','SHORTANSWER','NUMERICAL','ESSAY') NOT NULL DEFAULT 'MULTICHOICE' AFTER `test_id`;
 
 COMMIT;
 
