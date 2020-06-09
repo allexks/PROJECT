@@ -18,11 +18,13 @@ class Import {
 
     	$search_test_query = "SELECT t.*
     						FROM $testtable t
-    						WHERE t.title = :testtitle";
+    						WHERE t.title = :testtitle AND t.user_id = :test_user_id";
 
 		$stmt = $this->conn->prepare($search_test_query);
         $prep_testtitle = htmlspecialchars(strip_tags($testtitle));
+        $prep_test_user_id = htmlspecialchars(strip_tags($test_user_id));
         $stmt->bindParam(":testtitle", $prep_testtitle);
+        $stmt->bindParam(":test_user_id", $prep_test_user_id);
 
         if (!$stmt->execute()) {
             error_log("[!!] CRITICAL: SQL query unsucessful: "
@@ -45,7 +47,6 @@ class Import {
 				                  )";
 
 	  		$stmt_insert = $this->conn->prepare($insert_test_query);
-	        $prep_test_user_id = htmlspecialchars(strip_tags($test_user_id));
 	        $stmt_insert->bindParam(":test_user_id", $prep_test_user_id);
 	        $stmt_insert->bindParam(":testtitle", $prep_testtitle);
 
@@ -58,10 +59,11 @@ class Import {
 
         $test_id = "SELECT t.id
 						FROM $testtable t
-						WHERE t.title = :testtitle";
+						WHERE t.title = :testtitle AND t.user_id = :test_user_id";
 
 			$stmt_get_id = $this->conn->prepare($test_id);
 	        $stmt_get_id->bindParam(":testtitle", $prep_testtitle);
+          $stmt_get_id->bindParam(":test_user_id", $prep_test_user_id);
 
 			if (!$stmt_get_id->execute()) {
 	            error_log("[!!] CRITICAL: SQL query unsucessful: "
@@ -229,5 +231,32 @@ class Import {
 
 	        return true;
         }
+    }
+
+    public function imported($test_user_id, $testtitle) {
+      $testtable = Test::DB_TABLENAME;
+
+      $search_test_query = "SELECT t.*
+                FROM $testtable t
+                WHERE t.title = :testtitle AND t.user_id = :test_user_id";
+
+        $stmt = $this->conn->prepare($search_test_query);
+        $prep_testtitle = htmlspecialchars(strip_tags($testtitle));
+        $prep_test_user_id = htmlspecialchars(strip_tags($test_user_id));
+        $stmt->bindParam(":testtitle", $prep_testtitle);
+        $stmt->bindParam(":test_user_id", $prep_test_user_id);
+
+        if (!$stmt->execute()) {
+            error_log("[!!] CRITICAL: SQL query unsucessful: "
+                . $stmt->errorInfo()[2]);
+            return false;
+        }
+
+        $rows_count = $stmt->rowCount();
+        if ($rows_count <= 0) {
+          return false;
+        }
+
+        return true;        
     }
 }
