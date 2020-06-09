@@ -12,6 +12,7 @@ class Question {
 
     public $id;
     public $test_id;
+    public $type;
     public $text;
     public $order_number;
 
@@ -22,6 +23,10 @@ class Question {
 
     public function __construct($db) {
         $this->conn = $db;
+    }
+
+    public function isOpen() {
+        return in_array($this->type ?? "", ["shortanswer", "numerical", "essay"]);
     }
 
     public function fetch() {
@@ -52,6 +57,7 @@ class Question {
 
         $this->id = (int)$row["id"];
         $this->test_id = (int)$row["test_id"];
+        $this->type = strtolower($row["type"]);
         $this->order_number = (int)$row["order_number"];
         $this->text = $row["text"];
 
@@ -59,6 +65,11 @@ class Question {
     }
 
     public function fetchAnswers() {
+        if ($this->isOpen()) {
+            $this->answers = [];
+            return true;
+        }
+
         $questionstable = self::DB_TABLENAME;
         $answerstable = Answer::DB_TABLENAME;
 

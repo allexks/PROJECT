@@ -13,12 +13,16 @@
                 <hr />
                 <strong class="question <?=$params["question_classes"][(string)$question->id]?>"><?=$ind_q + 1?>. <?=$question->text?></strong>
 
-                <?php foreach ($question->answers as $ind_a => $answer): ?>
-                    <div class="answer">
-                        <input type="checkbox" name="q<?=$question->id?>[]" value="a<?=$answer->id?>">
-                        <label for="q<?=$question->id?>"><?=$answer->text?></label>
-                    </div>
-                <?php endforeach; ?>
+                <?php if ($question->isOpen()): ?>
+                    <em>(open-answer question)</em> <br />
+                <?php else: ?>
+                    <?php foreach ($question->answers as $ind_a => $answer): ?>
+                        <div class="answer">
+                            <input type="checkbox" name="q<?=$question->id?>[]" value="a<?=$answer->id?>">
+                            <label for="q<?=$question->id?>"><?=$answer->text?></label>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
                 <?php if ($params["give_feedback_mode"]): ?>
                     <em>Your feedback for question <?=$ind_q + 1?>:</em>
