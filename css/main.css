@@ -208,14 +208,14 @@ input[type="submit"]:focus {
 	margin-right: 5px;
 }
 
-.edit-delete-button {
+.delete-button {
 	padding: 0px;
 	background-color: transparent;
 	border: 0px;
 	margin: 10px auto;
 }
 
-.edit-delete-button:hover {
+.delete-button:hover {
 	padding: 0px;
 	background-color: transparent;
 	border: 0px;
@@ -232,24 +232,13 @@ input[type="submit"]:focus {
 	transform: scale(0.90,0.90);
 }
 
-.edit-test-icon {
-	margin: auto auto;
-	color: #204060;
-	transform: scale(0.80,0.80);
-}
-
-.edit-test-icon:hover {
-	color: #132639;
-	transform: scale(0.93,0.93);
-}
-
 .test-title {
-	width: 83%;
+	width: 90%;
 	display: inline-block;
 	margin: 10px 0px;
 }
 
-.edit-delete-button-wrapper {
+.delete-button-wrapper {
 	text-align: center;
 	margin: auto auto;
 	height: 60px;
