@@ -54,6 +54,20 @@ try {
         if ($array_size < 6) {
             throw new RuntimeException("Invalid parameters count.");
         }
+        $check_if_uploaded = $import->imported($_SESSION["user_id"], $line_array[0]);
+
+        if ($check_if_uploaded === true) {
+          throw new RuntimeException("Test already uploaded.");
+        }
+      }
+      rewind($file_csv);
+
+    while (($line_array = fgetcsv($file_csv)) !== false) {
+        $array_size = count($line_array);
+
+        if ($array_size < 6) {
+            throw new RuntimeException("Invalid parameters count.");
+        }
 
         $test_id = $import->importTest($_SESSION["user_id"], $line_array[0]);
 
