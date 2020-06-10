@@ -67,25 +67,26 @@ if (!$test->fetchQuestions()) {
 $arr = array();
 
 foreach ($test->questions as $ind_q => $question) {
-  $row = array();
-	$row[] = $test->title;
-  $row[] = $question->type;
-	$row[] = "";
-	$row[] = "";
-	$row[] = $question->text;
+    $row = array();
+    $row[] = $test->title;
+    $row[] = $question->type;
+    $row[] = "";
+    $row[] = "";
+    $row[] = $question->text;
 
-	foreach ($question->answers as $ind_a => $answer) {		
-		if ($answer->is_correct){
-			$row[] = 100;
-			$row[] = $answer->text;
-		}
-		else{
-			$row[] = 0;
-			$row[] = $answer->text;
-		}
-	}
-	$arr[] = $row;
-  $row = array();
+    if (!$question->answers || empty($question->answers)) {
+        $row[] = 0;  // satisfying the min column limit of 6
+    } else {
+        foreach ($question->answers as $ind_a => $answer) {
+            if ($answer->is_correct) {
+                $row[] = 100;
+            } else{
+                $row[] = 0;
+            }
+            $row[] = $answer->text;
+        }
+    }
+    $arr[] = $row;
 }
 
 download_send_headers($test->title . "_exported" . ".csv");
