@@ -23,6 +23,7 @@
                 <?php if ($params["all_system_tests"]): ?>
                     <th>Uploaded by</th>
                 <?php endif; ?>
+                <th>Export</th>
             </tr>
             <?php foreach ($params["tests"] as $index => $test): ?>
                 <tr>
@@ -32,6 +33,11 @@
                     <?php if ($params["all_system_tests"]): ?>
                         <td><?=$test->username?></td>
                     <?php endif; ?>
+                    <td>
+                        <a href="export.php?id=<?=$test->id?>">
+                            <img src="images/export.png" alt="Export" style="width:16px;height:16px;">
+                        </a> 
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>

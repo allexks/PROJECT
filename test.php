@@ -7,7 +7,7 @@ session_start();
 require "includes/db.php";
 
 
-function put_data_in_csv(array &$array)
+function array2csv(array &$array)
 {
    if (count($array) == 0) {
      return null;
@@ -69,7 +69,7 @@ $arr = array();
 foreach ($test->questions as $ind_q => $question) {
   $row = array();
 	$row[] = $test->title;
-  $row[] = $question->type;
+  $row[] = "multichoice";
 	$row[] = "";
 	$row[] = "";
 	$row[] = $question->text;
@@ -88,5 +88,6 @@ foreach ($test->questions as $ind_q => $question) {
   $row = array();
 }
 
-download_send_headers($test->title . "_exported" . ".csv");
-echo put_data_in_csv($arr);
+download_send_headers("data_export_" . date("Y-m-d") . ".csv");
+echo array2csv($arr);
+die();
