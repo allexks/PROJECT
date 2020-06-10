@@ -1,5 +1,14 @@
 <div id="container">
-    <h1><?=$params["title"]?></h1>
+    <?php if ($params["can_manage_test"]): ?>
+      <h1 class="test-title" name="test-title"><?=$params["title"]?></h1>
+      <form action="delete-test.php" method="POST" class="delete-button-wrapper">
+        <input type="hidden" name="test-title" value="<?=$params['title']?>" />
+        <button class="delete-button"><i class="fa fa-trash fa-2x delete-test-icon"></i></button>
+      </form>
+    <?php else: ?>
+      <h1><?=$params["title"]?></h1>
+    <?php endif; ?>
+
     <?php if ($params["is_viewing_results"]): ?>
         <h2>Results:</h2><h3><?=$params["sum"]?> / <?=$params["max"]?></h3>
     <?php endif; ?>

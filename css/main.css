@@ -88,7 +88,7 @@ textarea {
 	float: left;
 }
 
-.navbar img { 
+.navbar img {
 	width: 39px;
 	height: 30px;
 }
@@ -206,4 +206,42 @@ input[type="submit"]:focus {
 
 .position-password-label {
 	margin-right: 5px;
+}
+
+.delete-button {
+	padding: 0px;
+	background-color: transparent;
+	border: 0px;
+	margin: 10px auto;
+}
+
+.delete-button:hover {
+	padding: 0px;
+	background-color: transparent;
+	border: 0px;
+}
+
+.delete-test-icon {
+	margin: auto auto;
+	color: #ff0000;
+	transform: scale(0.75,0.75);
+}
+
+.delete-test-icon:hover {
+	color: #cc0000;
+	transform: scale(0.90,0.90);
+}
+
+.test-title {
+	width: 90%;
+	display: inline-block;
+	margin: 10px 0px;
+}
+
+.delete-button-wrapper {
+	text-align: center;
+	margin: auto auto;
+	height: 60px;
+	width: 7%;
+	display:inline-block;
 }
