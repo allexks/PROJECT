@@ -1,6 +1,6 @@
 <?php
 
-require_once "classes/models/Import.class.php";
+require_once "classes/util/Import.class.php";
 
 session_start();
 

@@ -1,5 +1,5 @@
 <?php
-  require_once "classes/models/Delete.class.php";
+  require_once "classes/util/Delete.class.php";
 
   session_start();
 

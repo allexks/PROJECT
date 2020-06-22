@@ -1,7 +1,7 @@
 <?php
 
 require_once "classes/models/User.class.php";
-require_once "classes/util/View.class.php";
+require_once "classes/views/View.class.php";
 
 // Determine currect logged user
 

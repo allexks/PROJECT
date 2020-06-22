@@ -17,6 +17,10 @@ class View {
         $this->title = $page_title;
     }
 
+    /**
+     * Send the corresponding HTML file to the client and terminate the script.
+     * @param array $params An array with parameters tweaking the HTML output while parsing.
+     */
     public function send($params = array()) {
         include self::TEMPLATE_DIR . "/main.html";
         exit(0);
