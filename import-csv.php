@@ -42,6 +42,9 @@ try {
     }
 
     $file_csv = fopen($_FILES['file-upload']['tmp_name'], 'r');
+    $delimiter = ",";
+    $enclosure = '"';
+    $escape = '\\';
     // Get delimiter
     if (empty($_POST["csv-delimiter"])) {
       $delimiter = ',';
@@ -50,11 +53,28 @@ try {
       $delimiter = htmlspecialchars($_POST["csv-delimiter"]);
     }
 
+    if (empty($_POST["csv-enclosure"])) {
+      $enclusure = '"';
+    }
+    else {
+      $enclosure = htmlspecialchars($_POST["csv-enclosure"]);
+    }
+
+    if (empty($_POST["csv-escape"])) {
+      $escape = '\\';
+    }
+    else if ($_POST["csv-escape"] === ' ') {
+      $escape = "";
+    }
+    else {
+      $escape = htmlspecialchars($_POST["csv-escape"]);
+    }
+
     if ( !$file_csv ) {
         throw new RuntimeException("Could not open the file.");
     }
 
-    while (($line_array = fgetcsv($file_csv, 0, $delimiter)) !== false) {
+    while (($line_array = fgetcsv($file_csv, 0, $delimiter, $enclosure, $escape)) !== false) {
         $array_size = count($line_array);
 
         if ($array_size < 6) {
@@ -68,9 +88,10 @@ try {
       }
       rewind($file_csv);
 
+    $skippedQuestions = 0;
     $questionsCount = 0;
     $testName = "";
-    while (($line_array = fgetcsv($file_csv, 0, $delimiter)) !== false) {
+    while (($line_array = fgetcsv($file_csv, 0, $delimiter, $enclosure, $escape)) !== false) {
         $array_size = count($line_array);
 
         if ($array_size < 6) {
@@ -95,9 +116,11 @@ try {
 
         // The questions must have different names it is not allowed to have the same question twice even tho it is different type
         $question_id = $import->importQuestion($test_id, $line_array[3], $type);
-        ++$questionsCount;
 
-        if ($question_id === false) {
+        if ($question_id === true) {
+          ++$skippedQuestions;
+        }
+        else if ($question_id === false) {
           $result = $delete->deleteTest($_SESSION["user_id"], $testName);
           if ($result === false) {
             throw new RuntimeException("Error occurred during question import. The error could not be handled. Please delete the test \"$line_array[0]\" manually.");
@@ -106,35 +129,38 @@ try {
             throw new RuntimeException("Error occurred during question import. Please try to reupload the test \"$testName\".");
           }
         }
+        else {
+          ++$questionsCount;
+          if ($type === "multichoice" || $type === "truefalse") {
+              for ($i = 4; $i < $array_size; ++$i) {
+                  if ($i % 2 == 0) {
+                      $percent = $line_array[$i];
+                  }
+                  else {
+                      $answer = $line_array[$i];
+                      $res = $import->importAnswer($question_id, $answer, $percent);
 
-        if ($type === "multichoice" || $type === "truefalse") {
-            for ($i = 4; $i < $array_size; ++$i) {
-                if ($i % 2 == 0) {
-                    $percent = $line_array[$i];
-                }
-                else {
-                    $answer = $line_array[$i];
-                    $res = $import->importAnswer($question_id, $answer, $percent);
-
-                    if ($res === false) {
-                      $result = $delete->deleteTest($_SESSION["user_id"], $testName);
-                      if ($result === false) {
-                        throw new RuntimeException("Error occurred during answer import. The error could not be handled. Please delete the test \"$line_array[0]\" manually.");
+                      if ($res === false) {
+                        $result = $delete->deleteTest($_SESSION["user_id"], $testName);
+                        if ($result === false) {
+                          throw new RuntimeException("Error occurred during answer import. The error could not be handled. Please delete the test \"$line_array[0]\" manually.");
+                        }
+                        else {
+                          throw new RuntimeException("Error occurred during answer import. Please try to reupload the test \"$testName\".");
+                        }
                       }
-                      else {
-                        throw new RuntimeException("Error occurred during answer import. Please try to reupload the test \"$testName\".");
-                      }
-                    }
-                }
+                  }
+              }
             }
-        }
+          }
     }
 
     fclose($file_csv);
 
+    $totalQuestions = $questionsCount + $skippedQuestions;
     $params = [
       "message" => "The test \"$testName\" was successfully uploaded.",
-      "upload-info" => "$questionsCount questions successfully uploaded."
+      "upload-info" => "$questionsCount/$totalQuestions questions successfully uploaded."
     ];
 
     $view = new View("import-response-success", "Import success");

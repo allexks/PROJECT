@@ -148,6 +148,9 @@ class Import {
 	            return false;
 	        }
         }
+        else {
+          return true;
+        }
 
         $question_id = "SELECT q.*
     						FROM $questiontable q
