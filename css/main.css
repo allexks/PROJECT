@@ -8,7 +8,7 @@ body {
     background-color: #ffffff;
     max-width: 600px;
     margin: 30px auto;
-    padding: 0px 10px 20px;
+    padding: 0 10px 20px;
     border-radius: 10px;
     border: solid 2px grey;
 }
@@ -69,7 +69,7 @@ textarea {
 }
 
 .navbar a {
-	margin: 0px 17px 0px 15px;
+	margin: 0 17px 0 15px;
 	color: #e7e3e8;
 	font-size: 1.5rem;
 	text-align: center;
@@ -209,20 +209,20 @@ input[type="submit"]:focus {
 }
 
 .delete-button {
-	padding: 0px;
+	padding: 0;
 	background-color: transparent;
-	border: 0px;
+	border: 0;
 	margin: 10px auto;
 }
 
 .delete-button:hover {
-	padding: 0px;
+	padding: 0;
 	background-color: transparent;
-	border: 0px;
+	border: 0;
 }
 
 .delete-test-icon {
-	margin: auto auto;
+	margin: auto;
 	color: #ff0000;
 	transform: scale(0.75,0.75);
 }
@@ -235,12 +235,12 @@ input[type="submit"]:focus {
 .test-title {
 	width: 90%;
 	display: inline-block;
-	margin: 10px 0px;
+	margin: 10px 0;
 }
 
 .delete-button-wrapper {
 	text-align: center;
-	margin: auto auto;
+	margin: auto;
 	height: 60px;
 	width: 7%;
 	display:inline-block;
