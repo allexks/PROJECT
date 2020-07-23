@@ -121,20 +121,20 @@ class Import {
 		if ($rows_count <= 0) {
 	        $insert_question_query = "INSERT INTO $questiontable
 				                  (
-				                      `test_id`,
-				                      `type`,
-				                      `text`,
-				                      `order_number`
+				                      test_id,
+				                      type,
+				                      text,
+				                      order_number
 				                  )
 				                  VALUES
 				                  (
 				                      :test_id,
-                                      :type,
+                              :type,
 				                      :question,
 				                      :order_number
 				                  )";
 
-	  		$stmt_insert = $this->conn->prepare($insert_question_query);
+	  		  $stmt_insert = $this->conn->prepare($insert_question_query);
 	        $prep_order_num = htmlspecialchars(strip_tags($questions_count));
 	        $prep_q_type = strtoupper(htmlspecialchars(strip_tags($q_type)));
 	        $stmt_insert->bindParam(":test_id", $prep_test_id);
@@ -148,12 +148,15 @@ class Import {
 	            return false;
 	        }
         }
+        else {
+          return true;
+        }
 
         $question_id = "SELECT q.*
     						FROM $questiontable q
     						WHERE q.test_id = :test_id AND q.text = :question";
 
-		$stmt_get_id = $this->conn->prepare($question_id);
+		    $stmt_get_id = $this->conn->prepare($question_id);
         $stmt_get_id->bindParam(":test_id", $prep_test_id);
         $stmt_get_id->bindParam(":question", $prep_question);
 
@@ -257,6 +260,6 @@ class Import {
           return false;
         }
 
-        return true;        
+        return true;
     }
 }
