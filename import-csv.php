@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/util/Import.class.php";
+require_once "classes/util/Delete.class.php";
 
 session_start();
 
@@ -8,6 +9,7 @@ require "includes/db.php";
 require "includes/user_id.php";
 
 $import = new Import($db);
+$delete = new Delete($db);
 
 try {
     if (!isset($_FILES['file-upload']['error']) || is_array($_FILES['file-upload']['error'])) {
