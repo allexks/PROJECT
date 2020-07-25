@@ -1,3 +1,20 @@
 <div id="container">
-    <h1>Export page</h1>
+    <h1>Export test</h1>
+  <form name="SubmitForm" enctype="multipart/form-data" action="export-csv.php?id=<?=$params['id']?>" method="POST" class="align-form-content">
+      <div class="position-delimiter-input">
+        <p class="delimiter-prompt">Choose delimiter:</p>
+        <input class="csv-delimiter" name="csv-delimiter" id="csv-delimiter" type="text" maxlength="1" placeholder="," />
+        <p class="delimiter-prompt">Choose enclosure:</p>
+        <input class="csv-delimiter" name="csv-enclosure" id="csv-enclosure" type="text" maxlength="1" placeholder='"' />
+        <p class="delimiter-prompt">Choose escape:</p>
+        <input class="csv-delimiter" name="csv-escapechar" id="csv-escapechar" type="text" maxlength="1" placeholder="\" />
+      </div>
+      <button type="submit">Export CSV</button>
+  </form>
+  <div style="padding-top: 20px;">
+  <form name="SubmitFormJSON" enctype="multipart/form-data" action="export-json.php?id=<?=$params['id']?>" method="POST" class="align-form-content">
+
+    <input id="json-file-upload" name="json-file-upload" type="submit" value="Export JSON" />
+  </form>
+  </div>
 </div>
