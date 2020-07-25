@@ -159,6 +159,12 @@ if (isset($_POST["submit"]) || isset($_POST["feedback"])) {
         $sum += $correct_count;
         $max += $all_possible_count;
     }
+
+    foreach ($test->questions as $ind_q => $question) {
+        if ($question->isOpen()) {
+            $question_classes[(string)$question->id] = "partial";
+        }
+    }
 }
 
 
