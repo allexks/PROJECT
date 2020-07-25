@@ -7,7 +7,7 @@ session_start();
 require "includes/db.php";
 
 
-function put_data_in_csv(array &$array)
+function put_data_in_csv(array &$array, $delimiter, $enclosure, $escapechar)
 {
    if (count($array) == 0) {
      return null;
@@ -15,7 +15,7 @@ function put_data_in_csv(array &$array)
    ob_start();
    $df = fopen("php://output", 'a');
    foreach ($array as $row) {
-      fputcsv($df, $row);
+      fputcsv($df, $row, $delimiter, $enclosure, $escapechar);
    }
    fclose($df);
    return ob_get_clean();
@@ -42,6 +42,9 @@ function download_send_headers($filename) {
 
 $test_id = $_GET["id"] ?? "0";
 $test_id = (int)$test_id;
+$delimiter = $_POST["csv-delimiter"] ?? ",";
+$enclosure = $_POST["csv-enclosure"] ?? '"';
+$escapechar = $_POST["csv-escapechar"] ?? "\\";
 
 if (!$test_id) {
     $view = new View("not_found", "Not Found");
@@ -90,4 +93,4 @@ foreach ($test->questions as $ind_q => $question) {
 }
 
 download_send_headers($test->title . "_exported" . ".csv");
-echo put_data_in_csv($arr);
+echo put_data_in_csv($arr, $delimiter, $enclosure, $escapechar);

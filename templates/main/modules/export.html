@@ -10,8 +10,10 @@
       <div class="position-delimiter-input">
         <p class="delimiter-prompt">Choose delimiter: </p>
         <input class="csv-delimiter" name="csv-delimiter" id="csv-delimiter" type="text" maxlength="1" placeholder="," />
+        <input class="csv-delimiter" name="csv-enclosure" id="csv-enclosure" type="text" maxlength="1" placeholder='"' />
+        <input class="csv-delimiter" name="csv-escapechar" id="csv-escapechar" type="text" maxlength="1" placeholder="\" />
       </div>
-      <button>Export CSV</button>
+      <button type="submit">Export CSV</button>
       <!-- <label for="file-upload" class="custom-input-file">
           Export CSV
       </label>
@@ -23,5 +25,5 @@
     <!-- <textarea name="json-content" rows="6" placeholder="JSON file content.."></textarea> -->
     <input id="json-file-upload" name="json-file-upload" type="submit" value="Export JSON" />
   </form>
-</div>
+  </div>
 </div>
