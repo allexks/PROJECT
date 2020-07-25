@@ -47,7 +47,7 @@ $user_id = $_SESSION["user_id"] ?? "0";
 $user_id = (int)$user_id;
 
 if ($user_id && $user_id == $test->user_id) {
-    $give_feedback_mode = false;
+    $give_feedback_mode = true;
     $view_feedback_mode = true;
     $can_manage_test = true;
 } elseif ($user_id) {
