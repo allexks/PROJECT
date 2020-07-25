@@ -1,0 +1,10 @@
+TEST1|multichoice|| QUESTION1| 100| dsa| 0| deg| 100| dsgb| 0| asdd
+TEST1|truefalse|| QUESTION2| 100| dsa| 0| deg
+TEST1|shortanswer|| QUESTION3| 100||
+TEST1|numerical|| QUESTION4| 100||
+TEST1|essay|| QUESTION5| 100|| 
+TEST1|multichoice|| QUESTION6| 100| dsa| 0| deg| 100| dsgb| 0| asdd
+TEST1|truefalse|| QUESTION7| 100| dsa| 0| deg
+TEST1|shortanswer|| QUESTION8| 100||
+TEST1|numerical|| QUESTION9| 100||
+TEST1|essay|| QUESTION10| 100|| 

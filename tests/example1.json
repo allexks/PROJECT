@@ -1,0 +1,8 @@
+{
+   "test": "test12",
+   "question1": ["multichoice", "questionName", "100", "asd", "0", "asdsff"],
+   "question2": ["truefalse", "questionName2", "0", "dsa", "100", "dss"],
+   "question3": ["shortanswer", "questionName3"],
+   "question4": ["numerical", "questionName4"],
+   "question5": ["essay", "questionName5"]
+}
