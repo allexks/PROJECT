@@ -8,7 +8,7 @@ body {
     background-color: #ffffff;
     max-width: 600px;
     margin: 30px auto;
-    padding: 0px 10px 20px;
+    padding: 0 10px 20px;
     border-radius: 10px;
     border: solid 2px grey;
 }
@@ -36,6 +36,7 @@ body {
 
 textarea {
 	width: 100%;
+	resize: vertical;
 }
 
 #tests {
@@ -69,7 +70,7 @@ textarea {
 }
 
 .navbar a {
-	margin: 0px 17px 0px 15px;
+	margin: 0 17px 0 15px;
 	color: #e7e3e8;
 	font-size: 1.5rem;
 	text-align: center;
@@ -209,20 +210,20 @@ input[type="submit"]:focus {
 }
 
 .delete-button {
-	padding: 0px;
+	padding: 0;
 	background-color: transparent;
-	border: 0px;
+	border: 0;
 	margin: 10px auto;
 }
 
 .delete-button:hover {
-	padding: 0px;
+	padding: 0;
 	background-color: transparent;
-	border: 0px;
+	border: 0;
 }
 
 .delete-test-icon {
-	margin: auto auto;
+	margin: auto;
 	color: #ff0000;
 	transform: scale(0.75,0.75);
 }
@@ -235,13 +236,79 @@ input[type="submit"]:focus {
 .test-title {
 	width: 90%;
 	display: inline-block;
-	margin: 10px 0px;
+	margin: 10px 0;
 }
 
 .delete-button-wrapper {
 	text-align: center;
-	margin: auto auto;
+	margin: auto;
 	height: 60px;
 	width: 7%;
 	display:inline-block;
+}
+
+.csv-delimiter {
+	width: 25px !important;
+	height: 25px !important;
+	text-align: center;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+
+.test-label-position {
+	color: #204060;
+	margin-top: 30px !important;
+	text-decoration: underline;
+}
+
+.delimiter-prompt {
+		display: inline-block;
+		font-size: 1.3rem;
+}
+
+.position-delimiter-input {
+	text-align: center;
+	margin: 5px;
+}
+
+.move-to-submit {
+	color: #204060;
+	text-decoration: none;
+}
+
+.move-to-submit:hover {
+	color: #2d5986;
+}
+
+#json-file-upload {
+	margin-top: 5px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #2d5986;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltiptext {
+	font-size: 1rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
