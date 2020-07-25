@@ -24,6 +24,7 @@
 
                 <?php if ($question->isOpen()): ?>
                     <em>(open-answer question)</em> <br />
+                    <textarea name="ignored" rows="2" cols="80"></textarea>
                 <?php else: ?>
                     <?php foreach ($question->answers as $ind_a => $answer): ?>
                         <div class="answer">
