@@ -46,6 +46,10 @@ $delimiter = $_POST["csv-delimiter"] ?? ",";
 $enclosure = $_POST["csv-enclosure"] ?? '"';
 $escapechar = $_POST["csv-escapechar"] ?? "\\";
 
+$delimiter = strlen($delimiter) !== 1 ? "," : $delimiter;
+$enclosure = strlen($enclosure) !== 1 ? '"' : $enclosure;
+$escapechar = strlen($escapechar) !== 1 ? "\\" : $escapechar;
+
 if (!$test_id) {
     $view = new View("not_found", "Not Found");
     $view->send();
