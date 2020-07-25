@@ -28,7 +28,7 @@ function download_send_headers($filename) {
     header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
     header("Last-Modified: {$now} GMT");
 
-    // force download  
+    // force download
     header("Content-Type: application/force-download");
     header("Content-Type: application/octet-stream");
     header("Content-Type: application/download");
@@ -92,5 +92,5 @@ foreach ($test->questions as $ind_q => $question) {
     $arr[] = $row;
 }
 
-download_send_headers($test->title . "_exported" . ".csv");
+download_send_headers($test->title . "_exported.csv");
 echo put_data_in_csv($arr, $delimiter, $enclosure, $escapechar);
