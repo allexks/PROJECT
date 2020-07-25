@@ -104,7 +104,7 @@ foreach ($test->questions as $ind_q => $question) {
       }
     }
 
-    $response['question' . ($ind_q + 1)][] = $current_question;
+    $response['question' . ($ind_q + 1)] = $current_question;
 }
 
 download_send_headers($test->title . "_exported.json");
