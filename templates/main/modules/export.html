@@ -1,11 +1,5 @@
 <div id="container">
     <h1>Export test</h1>
-    <!-- <form name="SubmitForm" enctype="multipart/form-data" action="import-csv.php" method="POST" class="align-form-content">
-        <label for="file-upload" class="custom-input-file">
-            Import
-        </label>
-        <input onchange="AutoSubmit();" id="file-upload" name="file-upload" type="file" />
-    </form> -->
   <form name="SubmitForm" enctype="multipart/form-data" action="export-csv.php?id=<?=$params['id']?>" method="POST" class="align-form-content">
       <div class="position-delimiter-input">
         <p class="delimiter-prompt">Choose delimiter:</p>
@@ -16,15 +10,10 @@
         <input class="csv-delimiter" name="csv-escapechar" id="csv-escapechar" type="text" maxlength="1" placeholder="\" />
       </div>
       <button type="submit">Export CSV</button>
-      <!-- <label for="file-upload" class="custom-input-file">
-          Export CSV
-      </label>
-      <input id="file-upload" name="file-upload" type="file" /> -->
   </form>
   <div style="padding-top: 20px;">
   <form name="SubmitFormJSON" enctype="multipart/form-data" action="export-json.php?id=<?=$params['id']?>" method="POST" class="align-form-content">
-    <!-- <h2 class="test-label-position tooltip"><a class="move-to-submit" href="#json-file-upload">Export Json</a><span class="tooltiptext">On click: go to submit button</span></h2> -->
-    <!-- <textarea name="json-content" rows="6" placeholder="JSON file content.."></textarea> -->
+
     <input id="json-file-upload" name="json-file-upload" type="submit" value="Export JSON" />
   </form>
   </div>
